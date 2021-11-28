@@ -1,5 +1,4 @@
-import subprocess,time,os,json
-
+import subprocess,time,os,json,sys
 def print_json():
     a_file = open("txt.json", "r")
     a_json = json.load(a_file)
@@ -19,14 +18,13 @@ def get_io_type():
         print(i)
     for i in a_json['output']:
         print(i)
-def create_samples():
-    return 0
+
 def create_files():
-    
-    #TODO: create files and directories according to problems and use ecnerwala template
+
     return 0
 def download_problem_to_json():
     argument = '...'
+    cur = os.getcwd()
     os.chdir("/Users/sandisk/Desktop")
     os.chdir("tmp")
     os.chdir("programming")
@@ -41,16 +39,25 @@ def download_problem_to_json():
         pid1 = proc1.pid
         #for os proc double case so that it works without any exceptions/errors
         os.system("killall -9 node")
-        print('killed node processes')
+        print('KILLED NODE PROCESSES')
+        print()
         print_json()
+        print()
         #get_all()
-        print("\n")
         #erase json
         open('txt.json', 'r+').truncate()
-        os.chdir("/Users/sandisk")
+        #os.chdir("/Users/sandisk")
         #DEBUG: print("kill successful")
+        os.chdir(cur)
+def main():
+    prob_count = int(sys.argv[1])
+    #print(prob_count)
+    arg_list = sys.argv
+    #print(arg_list)
+    for i in range(prob_count):
+       download_problem_to_json()
+    #print(arg_list[0])
 
-prob_count = int(input("How many problems are going to parse? "))
-for i in range(prob_count):
-    download_problem_to_json()
-
+if __name__ == '__main__':
+    main()
+#TODO: create folders,input/output files ("sample.in","sample.out" [make separate ones for each testcase given by problem]) ,reorganize makefiles,integrate using OOP?
