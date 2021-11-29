@@ -33,8 +33,10 @@ def make_samples(dir):
         out_file.write(i['output'])
         j += 1
         os.chdir("/Users/sandisk/Desktop/tmp/programming/cpp2")
-    os.chdir(f"{dir}/samples")
+    #os.chdir(f"{dir}/samples")
+    cpp_file_name = dir[-1:]
     os.system(f"cp /Users/sandisk/Desktop/tmp/programming/cpp2/main.cpp {dir}")
+    os.system(f"mv {dir}/main.cpp {dir}/{cpp_file_name}.cpp")
     #print(list)
 
 def create_files(dir):
@@ -97,4 +99,6 @@ def main():
 
 if __name__ == '__main__':
     main()
+    str = "Hello World"
+    print(str[-1:])
 #TODO: reorganize and recreate makefile,integrate using OOP?,add helpbar if you are stuck on how to use, use try and except for download_json
