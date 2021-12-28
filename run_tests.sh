@@ -18,12 +18,15 @@ function output_diffs(){
 		#amt_passed=$(($amt_passed + 1))
 	else	
 		line=$(grep -n $difference $2)
-		line_number=$(echo $line | cut -c1-1)
-		#echo "$line_number"
+		echo $line > diffs.txt
+		first_line_of_diff_txt=$(head -1 diffs.txt)
+		line_number=$(echo $first_line_of_diff_txt | cut -c1-1)
+		#printf "line number: $line_number\n"
 		expected=$(sed -n "$line_number"p $2)
 		output=$(sed -n "$line_number"p $1)
 		line_number_string="$line_number"
 		printf "Mismatch at "$line_number_string"-th value: $output (output.out) vs. $expected ($2)"
+		: > "diffs.txt"
 	fi
 	}
 function dbrun(){
