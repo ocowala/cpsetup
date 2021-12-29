@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import subprocess,time,os,json,sys
 def print_json():
     a_file = open("txt.json", "r")
@@ -28,6 +29,7 @@ def make_samples(dir):
     os.chdir(f"{dir}/samples")
     output_out_file=open(f"output.out","w")
     diffs_txt_file=open(f"diffs.txt","w")
+    input_txt_file=open(f"input.txt","w")
     for i in a_json['tests']:
         os.chdir(f"{dir}/samples")
         in_file = open(f"sample{j}.in","w")
@@ -102,6 +104,4 @@ def main():
 
 if __name__ == '__main__':
     main()
-    str = "Hello World"
-    print(str[-1:])
 #TODO: reorganize and recreate makefile,integrate using OOP?,add helpbar if you are stuck on how to use, use try and except for download_json

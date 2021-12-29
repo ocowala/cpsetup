@@ -96,4 +96,28 @@ fi
 cd $cur_dir
 exec zsh
 }
+function gprun(){
+	file_name=$1
+	cur_dir="$PWD"
+	printf "[COMPILE MODE] Compiling $file_name.cpp with c++17\n"
+	printf "Running samples/input.txt:"
+	printf "\n- - - - - - - - - - - - - - -\n"
+	printf "Input:\n"
+	input_value=$(cat "samples/input.txt")
+	echo "$input_value"
+	printf "- - - - - - - - - - - - - - -\n"
+	/opt/homebrew/bin/g++ -std=c++17 -Wshadow -Wall -O2 -Wno-unused-result "$file_name.cpp" -o $file_name && ./$file_name < "samples/input.txt" > "samples/output.out"
+	printf "Output:\n"
+	output_value=$(cat "samples/output.out")
+	echo "$output_value"
+	touch samples/time.txt
+	touch samples/memory.txt
+	time=$(bash ~/runtime.sh $file_name "input.txt" "samples/time.txt" &)
+	memory=$(bash ~/mem_lim.sh $file_name "input.txt" "samples/memory.txt" &)
+	printf "\n$time\n"
+	printf "$memory\n"
+	rm -f samples/time.txt
+	rm -f samples/memory.txt
+	: > "samples/output.out"
+}
 #dbrun $1
